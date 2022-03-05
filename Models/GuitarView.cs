@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace GuitarBazar.Models
+namespace TP01.Models
 {
     [MetadataType(typeof(GuitarView))]
     public partial class Guitar
@@ -15,7 +15,7 @@ namespace GuitarBazar.Models
         }
        
     }
-    public  class GuitarView
+    public class GuitarView
     {
         public int Id { get; set; }
 

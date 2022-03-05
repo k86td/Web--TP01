@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="296e02925b074c408f43808722a2a885" Name="Diagram1">
+        <EntityTypeShape EntityType="GuitaresDatabaseModel.Condition" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GuitaresDatabaseModel.Guitar" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GuitaresDatabaseModel.GuitarType" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GuitaresDatabaseModel.Seller" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <AssociationConnector Association="GuitaresDatabaseModel.FK_Guitars_Conditions" ManuallyRouted="false" />
+        <AssociationConnector Association="GuitaresDatabaseModel.FK_Guitars_GuitarTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="GuitaresDatabaseModel.FK_Guitars_Sellers" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace GuitarBazar.Models
+namespace TP01.Models
 {
     [MetadataType(typeof(SellerView))]
     public partial class Seller

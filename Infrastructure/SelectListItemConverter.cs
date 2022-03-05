@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace GuitarBazar.Models
+namespace TP01.Infrastructure
 {
     public class SelectListItemConverter<T>
     {

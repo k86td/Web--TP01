@@ -11,7 +11,9 @@ namespace TP01.Controllers
         // GET: Guitars
         public ActionResult Index()
         {
-            return View();
+            Models.Guitar[] test =  { new Models.Guitar() };
+
+            return View(test);
         }
     }
 }
