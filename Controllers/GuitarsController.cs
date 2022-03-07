@@ -4,16 +4,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using TP01.Models;
+
 namespace TP01.Controllers
 {
     public class GuitarsController : Controller
     {
+        private readonly GuitaresDatabaseEntities DB = new GuitaresDatabaseEntities();
+
         // GET: Guitars
         public ActionResult Index()
         {
-            Models.Guitar[] test =  { new Models.Guitar() };
-
-            return View(test);
+            return View(DB.Guitars);
+            // return View(DB.Guitars.OrderBy(el => el.AddDate));
         }
+
+
     }
 }
