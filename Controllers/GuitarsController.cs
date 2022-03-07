@@ -15,8 +15,13 @@ namespace TP01.Controllers
         // GET: Guitars
         public ActionResult Index()
         {
-            return View(DB.Guitars);
-            // return View(DB.Guitars.OrderBy(el => el.AddDate));
+            return View(DB.Guitars.OrderBy(el => el.AddDate));
+        }
+
+        public ActionResult Details (int id)
+        {
+            Guitar search = DB.Guitars.Find(id);
+            return View(search);
         }
 
 

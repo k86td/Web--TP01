@@ -1,0 +1,52 @@
+﻿@model TP01.Models.Guitar
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Model.Model</h2>
+
+<p>
+    @Helper.GlyphiconAction("Edit", "glyphicon glyphicon-check", "Modifier", routeValue: new { id = Model.Id })
+    @Helper.GlyphiconAction("Delete", "glyphicon glyphicon-remove-circle", "Supprimer", routeValue: new { id = Model.Id })
+    @Helper.GlyphiconAction("Index", "glyphicon glyphicon-arrow-up", "Retour")
+</p>
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-6">
+            @Helper.GuitarImage("guitar", "imageSize", Model.ImageURL, Model.Sold, Model.RotateImage)
+        </div>
+
+        <div class="col-sm-6">
+            <h2>Vendeur: @Model.Seller.Name</h2>
+
+            <dl class="dl-horizontal">
+                <dt>@Html.DisplayNameFor(model => model.AddDate)</dt>
+                <dd>@Helper.When(Model.AddDate)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+                <dd>@Model.Description</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.Year)</dt>
+                <dd>@Model.Year</dd>
+
+                <dt>Condition</dt>
+                <dd>@Model.Condition.Name</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.GuitarType)</dt>
+                <dd>@Model.GuitarType.Name</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.Price)</dt>
+                <dd>@Model.Price</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.Sold)</dt>
+                <dd>@Helper.BoolToValue(Model.Sold)</dd>
+
+            </dl>
+        </div>
+    </div>
+</div>
+

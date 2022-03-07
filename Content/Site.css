@@ -89,9 +89,14 @@ input[type=radio] {
     max-width: 100%;
 }
 
-.imageSize {
+/*.imageSize {
     width: 450px;
     height: 338px;
+}*/
+
+.imageSize {
+    width: 450px;
+    height: 450px;
 }
 
 .imageContainer {

@@ -1,4 +1,6 @@
-﻿@helper ListToRadioButtonGroup(string name, System.Web.Mvc.SelectList options, int selectedValue)
+﻿@using System.Globalization;
+
+@helper ListToRadioButtonGroup(string name, System.Web.Mvc.SelectList options, int selectedValue)
 {
     foreach (System.Web.Mvc.SelectListItem option in options.Items)
     {
@@ -17,10 +19,11 @@
     <br />
 }
 
-@helper GlyphiconAction(string Action, string glyphiconClass, string TooltipMessage, string ToolTipPlacement = "bottom")
+@helper GlyphiconAction(string Action, string glyphiconClass, string TooltipMessage, string ToolTipPlacement = "bottom", object routeValue = null)
 {
     var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
-    <a href="@Url.Action(Action)" style="text-decoration:none">
+    
+    <a href="@Url.Action(Action,routeValue)" style="text-decoration:none">
         <span class="glyphicon glyphiconStyle @glyphiconClass"
               title="@TooltipMessage"
               data-placement="@ToolTipPlacement">
@@ -59,13 +62,16 @@
     <input type="datetime-local" name="@Id" id="@Id" value="@date" class="form-control" />
 }
 
-
 @helper When(DateTime date)
 {
     TimeSpan span = DateTime.Now.Subtract(date);
+ 
     if (span.Days > 0)
     {
-        <div style="float:left">Le @date.ToLongDateString()&nbsp;</div>
+        CultureInfo french = new CultureInfo("fr-FR");
+        CultureInfo.DefaultThreadCurrentCulture = french;
+
+        <div style="float:left">Le @date.ToString(french.DateTimeFormat.LongDatePattern)&nbsp;</div>
         <div class="glyphicon glyphicon-time smallGlyphicon" title="@date.ToShortTimeString()" data-placement="right"></div>
     }
     else
@@ -87,6 +93,7 @@
         }
     }
 }
+
 @helper GuitarImage(string id, string imgClass, string url, bool sold, bool rotate = false)
 {
     var ContextUrl = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
@@ -94,15 +101,17 @@
     var soldUrl = ContextUrl.Content("~/Content/Images/sold.png");
     var rotateCSS = (rotate ? "transform: rotate(270deg)" : "");
     var soldCSS = (rotate ? "transform: rotate(-270deg)" : "");
+
     if (!string.IsNullOrEmpty(url))
     {
         imageUrl = url;
     }
+    
     <div id="@id" class='@imgClass' style='background:url(@imageUrl) no-repeat center;  background-size: contain; @rotateCSS'>
-            @if (sold)
-            {
-                <img src="@soldUrl" class="soldStamp" style="@soldCSS"/>
-            }
+        @if (sold)
+        {
+            <img src="@soldUrl" class="soldStamp" style="@soldCSS" />
+        }
     </div>
 }
 

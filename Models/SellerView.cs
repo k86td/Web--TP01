@@ -10,6 +10,7 @@ namespace TP01.Models
     public partial class Seller
     {
     }
+
     public class SellerView
     {
         public int Id { get; set; }
