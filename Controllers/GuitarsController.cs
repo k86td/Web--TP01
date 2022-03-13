@@ -11,7 +11,7 @@ namespace TP01.Controllers
     public class GuitarsController : Controller
     {
         private readonly GuitaresDatabaseEntities DB = new GuitaresDatabaseEntities();
-
+        // test
         // GET: Guitars
         public ActionResult Index()
         {
