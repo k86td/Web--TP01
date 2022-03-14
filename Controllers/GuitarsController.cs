@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using TP01.Infrastructure;
 using TP01.Models;
 
 namespace TP01.Controllers
@@ -22,6 +23,8 @@ namespace TP01.Controllers
         {
             Guitar search = DB.Guitars.Find(id);
             return View(search);
+
+            
         }
 
 

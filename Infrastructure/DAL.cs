@@ -11,7 +11,7 @@ namespace TP01.Infrastructure
 {
     static class DAL
     {
-        static Guitar AjouterGuitar (this GuitaresDatabaseEntities DB, Guitar guitar)
+        static public Guitar AjouterGuitar (this GuitaresDatabaseEntities DB, Guitar guitar)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace TP01.Infrastructure
             return guitar;
         }
 
-        static bool EnleverGuitar (this GuitaresDatabaseEntities DB, Guitar guitar)
+        static public bool EnleverGuitar (this GuitaresDatabaseEntities DB, Guitar guitar)
         {
             Guitar search = DB.Guitars.Find(guitar);
             
@@ -46,7 +46,7 @@ namespace TP01.Infrastructure
             return false;
         }
 
-        static bool ModifierGuitar (this GuitaresDatabaseEntities DB, Guitar guitar)
+        static public bool ModifierGuitar (this GuitaresDatabaseEntities DB, Guitar guitar)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace TP01.Infrastructure
             return true;
         }
 
-        static Seller AjouterSeller (this GuitaresDatabaseEntities DB, Seller seller) 
+        static public Seller AjouterSeller (this GuitaresDatabaseEntities DB, Seller seller) 
         {
             try
             {
@@ -74,7 +74,7 @@ namespace TP01.Infrastructure
             }
         }
 
-        static bool ModifierSeller(this GuitaresDatabaseEntities DB, Seller seller) 
+        static public bool ModifierSeller(this GuitaresDatabaseEntities DB, Seller seller) 
         {
             try
             {
@@ -89,7 +89,7 @@ namespace TP01.Infrastructure
             return true;
         }
 
-        static bool EnleverSeller(this GuitaresDatabaseEntities DB, Seller seller) 
+        static public bool EnleverSeller(this GuitaresDatabaseEntities DB, Seller seller) 
         {
             Seller search = DB.Sellers.Find(seller);
 
