@@ -27,8 +27,29 @@ namespace TP01.Infrastructure
 
         static public bool EnleverGuitar (this GuitaresDatabaseEntities DB, Guitar guitar)
         {
-            Guitar search = DB.Guitars.Find(guitar);
+            Guitar search = DB.Guitars.Find(guitar.Id);
             
+            if (search != null)
+            {
+                try
+                {
+                    DB.Guitars.Remove(search);
+                    DB.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
+        static public bool EnleverGuitar(this GuitaresDatabaseEntities DB, int guitar)
+        {
+            Guitar search = DB.Guitars.Find(guitar);
+
             if (search != null)
             {
                 try
@@ -91,7 +112,7 @@ namespace TP01.Infrastructure
 
         static public bool EnleverSeller(this GuitaresDatabaseEntities DB, Seller seller) 
         {
-            Seller search = DB.Sellers.Find(seller);
+            Seller search = DB.Sellers.Find(seller.Id);
 
             if (search == null)
                 return false;

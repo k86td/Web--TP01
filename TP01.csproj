@@ -193,6 +193,7 @@
       <DependentUpon>GuitaresEntities.edmx</DependentUpon>
       <LastGenOutput>GuitaresEntities.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Code\Helper.cshtml" />

@@ -23,8 +23,13 @@ namespace TP01.Controllers
         {
             Guitar search = DB.Guitars.Find(id);
             return View(search);
-
             
+        }
+
+        public ActionResult Delete (Guitar guitar)
+        {
+            DB.EnleverGuitar(guitar.Id);
+            return RedirectToAction("Index");
         }
 
 
