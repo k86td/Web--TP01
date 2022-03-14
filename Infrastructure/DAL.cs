@@ -121,6 +121,25 @@ namespace TP01.Infrastructure
             }
         }
 
+        static public bool EnleverSeller(this GuitaresDatabaseEntities DB, int id)
+        {
+            Seller search = DB.Sellers.Find(id);
+
+            if (search == null)
+                return false;
+
+            try
+            {
+                DB.Sellers.Remove(search);
+                DB.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
     }
     
 }

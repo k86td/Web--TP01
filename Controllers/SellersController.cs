@@ -56,5 +56,16 @@ namespace TP01.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult Delete (int id)
+        {
+            DB.EnleverSeller(id);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Details (int id)
+        {
+            return View(DB.Sellers.Find(id));
+        }
     }
 }

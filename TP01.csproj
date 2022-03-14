@@ -240,6 +240,7 @@
     <Content Include="Views\Sellers\Create.cshtml" />
     <Content Include="Views\Sellers\Edit.cshtml" />
     <Content Include="Views\Sellers\_SellersForm.cshtml" />
+    <Content Include="Views\Sellers\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
