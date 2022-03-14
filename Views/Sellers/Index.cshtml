@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TP01.Models.Seller>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Liste des vendeurs</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Helper.GlyphiconAction("Edit", "glyphicon-pencil", "Modifier", routeValue: new { id = item.Id })
+            @Helper.GlyphiconAction("Details", "glyphicon-eye-open", "Details", routeValue: new { id = item.Id })
+            @Helper.GlyphiconAction("Delete", "glyphicon-remove", "Supprimer", routeValue: new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

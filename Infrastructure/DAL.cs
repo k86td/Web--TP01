@@ -85,7 +85,7 @@ namespace TP01.Infrastructure
         {
             try
             {
-                DB.Sellers.Add(seller);
+                seller = DB.Sellers.Add(seller);
                 DB.SaveChanges();
                 return seller;
             }
@@ -97,22 +97,33 @@ namespace TP01.Infrastructure
 
         static public bool ModifierSeller(this GuitaresDatabaseEntities DB, Seller seller) 
         {
-            try
-            {
-                DB.Entry(seller).State = EntityState.Modified;
-                DB.SaveChanges();
-            }
-            catch
-            {
-                return false;
-            }
-
+            DB.Entry(seller).State = EntityState.Modified;
+            DB.SaveChanges();
             return true;
         }
 
         static public bool EnleverSeller(this GuitaresDatabaseEntities DB, Seller seller) 
         {
             Seller search = DB.Sellers.Find(seller.Id);
+
+            if (search == null)
+                return false;
+
+            try
+            {
+                DB.Sellers.Remove(search);
+                DB.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        static public bool EnleverSeller(this GuitaresDatabaseEntities DB, int id)
+        {
+            Seller search = DB.Sellers.Find(id);
 
             if (search == null)
                 return false;

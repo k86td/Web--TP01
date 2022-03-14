@@ -1,0 +1,28 @@
+﻿@model TP01.Models.Seller
+
+<div>
+    <h2>
+        @Html.DisplayFor(model => model.Name)
+        @Helper.GlyphiconAction("Index", "glyphicon-arrow-up", "Retour")
+        @Helper.GlyphiconAction("Delete", "glyphicon-remove", "Supprimer", routeValue: new { id = Model.Id })
+    </h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+    </dl>
+</div>
