@@ -85,7 +85,7 @@ namespace TP01.Infrastructure
         {
             try
             {
-                DB.Sellers.Add(seller);
+                seller = DB.Sellers.Add(seller);
                 DB.SaveChanges();
                 return seller;
             }
@@ -97,16 +97,8 @@ namespace TP01.Infrastructure
 
         static public bool ModifierSeller(this GuitaresDatabaseEntities DB, Seller seller) 
         {
-            try
-            {
-                DB.Entry(seller).State = EntityState.Modified;
-                DB.SaveChanges();
-            }
-            catch
-            {
-                return false;
-            }
-
+            DB.Entry(seller).State = EntityState.Modified;
+            DB.SaveChanges();
             return true;
         }
 

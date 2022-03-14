@@ -1,0 +1,13 @@
+﻿@model TP01.Models.Seller
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Creation de vendeur</h2>
+
+@{ Html.RenderPartial("~/Views/Sellers/_SellersForm.cshtml"); }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

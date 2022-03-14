@@ -1,0 +1,17 @@
+﻿@model TP01.Models.Seller
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>
+    Modification de vendeur
+    @Helper.GlyphiconAction("Index", "glyphicon-arrow-up", "Retour")
+</h2>
+
+@{ Html.RenderPartial("~/Views/Sellers/_SellersForm.cshtml"); }
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
