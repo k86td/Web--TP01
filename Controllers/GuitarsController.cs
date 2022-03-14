@@ -26,6 +26,11 @@ namespace TP01.Controllers
             
         }
 
+        public ActionResult About ()
+        {
+            return View();
+        }
+
         public ActionResult Delete (Guitar guitar)
         {
             DB.EnleverGuitar(guitar.Id);
