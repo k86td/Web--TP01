@@ -241,7 +241,7 @@
     <Content Include="Views\Sellers\Edit.cshtml" />
     <Content Include="Views\Sellers\_SellersForm.cshtml" />
     <Content Include="Views\Sellers\Details.cshtml" />
-    <Content Include="Views\Shared\GuitarForm.cshtml" />
+    <Content Include="Views\Guitars\GuitarForm.cshtml" />
     <Content Include="Views\Guitars\Create.cshtml" />
     <Content Include="Views\Guitars\Edit.cshtml" />
   </ItemGroup>

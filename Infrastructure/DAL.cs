@@ -15,6 +15,7 @@ namespace TP01.Infrastructure
         {
             try
             {
+                //guitar.GuitarTypeId = DB.GetGuitarTypeIdByName(guitar.)
                 DB.Guitars.Add(guitar);
                 DB.SaveChanges();
             } catch 
@@ -138,6 +139,48 @@ namespace TP01.Infrastructure
             {
                 return false;
             }
+        }
+
+        public static int GetConditionIdByName(this GuitaresDatabaseEntities DB, string name)
+        {
+            name = name.First().ToString().ToUpper() + name.Substring(1).ToLower();
+            Condition condition = DB.Conditions.Where(c => c.Name == name).FirstOrDefault();
+            if (condition == null)
+            {
+                condition = new Condition();
+                condition.Name = name;
+                condition = DB.Conditions.Add(condition);
+                DB.SaveChanges();
+            }
+            return condition.Id;
+        }
+
+        public static int GetGuitarTypeIdByName(this GuitaresDatabaseEntities DB, string name)
+        {
+            name = name.First().ToString().ToUpper() + name.Substring(1).ToLower();
+            GuitarType guitarType = DB.GuitarTypes.Where(c => c.Name == name).FirstOrDefault();
+            if (guitarType == null)
+            {
+                guitarType = new GuitarType();
+                guitarType.Name = name;
+                guitarType = DB.GuitarTypes.Add(guitarType);
+                DB.SaveChanges();
+            }
+            return guitarType.Id;
+        }
+
+        public static int GetSellerIdByName(this GuitaresDatabaseEntities DB, string name)
+        {
+            name = name.First().ToString().ToUpper() + name.Substring(1).ToLower();
+            Seller seller = DB.Sellers.Where(c => c.Name == name).FirstOrDefault();
+            if (seller == null)
+            {
+                seller = new Seller();
+                seller.Name = name;
+                seller = DB.Sellers.Add(seller);
+                DB.SaveChanges();
+            }
+            return seller.Id;
         }
     }
     
