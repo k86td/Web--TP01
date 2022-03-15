@@ -7,17 +7,41 @@
 <h2>Guitares à vendre @Helper.GlyphiconAction("Create", "glyphicon-plus", "Ajouter une guitare à vendre")</h2>
 
 <hr />
+<div class="guitarFilterContainer">
+    <div style="display:grid; grid-template-columns: 70px 180px ">
+        <div style="font-size:14px; margin-top:6px">Guitares</div>
+        @Helper.SelectList("SoldFilterSelectList", (SelectList)Session["SoldFilterList"], (int)Session["SoldFilterChoice"])
+    </div>
+    <div style="display:grid; grid-template-columns: 70px 180px">
+        <div style="font-size:14px; margin-top:6px">Vendeurs</div>
+        @Helper.SelectList("SellerFilterSelectList", (SelectList)Session["SellerFilterList"], (int)Session["SellerFilterChoice"])
+    </div>
+</div>
+
+@section Scripts {
+    <script defer>
+        setInterval(function () { location.reload(); }, 600000);
+
+         $("#SoldFilterSelectList").change(() => {
+             window.location = "@Url.Action("SetSoldFilterChoice")" + "/" + $("#SoldFilterSelectList").val();
+         })
+
+        $("#SellerFilterSelectList").change(() => {
+            window.location = "@Url.Action("SetSellerFilterChoice")" + "/" + $("#SellerFilterSelectList").val();
+         })
+    </script>
+}
 <div class='thumbnailListContainer'>
     @foreach (var guitar in Model)
     {
-        <div class='thumbnailContainer'>
-            <div class='thumbnailHeader ellipsis'>
-                <b>@guitar.Model</b>
-            </div>
-            <a href="@Url.Action("Details", "Guitars", new { id = guitar.Id })">
-                @Helper.GuitarImage("thumbail" + guitar.Id, "thumbnail", guitar.ImageURL, guitar.Sold, guitar.RotateImage)
-            </a>
+    <div class='thumbnailContainer'>
+        <div class='thumbnailHeader ellipsis'>
+            <b>@guitar.Model</b>
         </div>
+        <a href="@Url.Action("Details", "Guitars", new { id = guitar.Id })">
+            @Helper.GuitarImage("thumbail" + guitar.Id, "thumbnail", guitar.ImageURL, guitar.Sold, guitar.RotateImage)
+        </a>
+    </div>
     }
 </div>
 <script>

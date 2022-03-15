@@ -11,14 +11,15 @@ namespace TP01.Infrastructure
 {
     static class DAL
     {
-        static public Guitar AjouterGuitar (this GuitaresDatabaseEntities DB, Guitar guitar)
+        static public Guitar AjouterGuitar(this GuitaresDatabaseEntities DB, Guitar guitar)
         {
             try
             {
                 //guitar.GuitarTypeId = DB.GetGuitarTypeIdByName(guitar.)
                 DB.Guitars.Add(guitar);
                 DB.SaveChanges();
-            } catch 
+            }
+            catch
             {
                 throw new Exception("Impossible d'ajouter l'item a la bd");
             }
@@ -26,10 +27,10 @@ namespace TP01.Infrastructure
             return guitar;
         }
 
-        static public bool EnleverGuitar (this GuitaresDatabaseEntities DB, Guitar guitar)
+        static public bool EnleverGuitar(this GuitaresDatabaseEntities DB, Guitar guitar)
         {
             Guitar search = DB.Guitars.Find(guitar.Id);
-            
+
             if (search != null)
             {
                 try
@@ -68,13 +69,14 @@ namespace TP01.Infrastructure
             return false;
         }
 
-        static public bool ModifierGuitar (this GuitaresDatabaseEntities DB, Guitar guitar)
+        static public bool ModifierGuitar(this GuitaresDatabaseEntities DB, Guitar guitar)
         {
             try
             {
                 DB.Entry(guitar).State = EntityState.Modified;
                 DB.SaveChanges();
-            } catch
+            }
+            catch
             {
                 return false;
             }
@@ -82,7 +84,7 @@ namespace TP01.Infrastructure
             return true;
         }
 
-        static public Seller AjouterSeller (this GuitaresDatabaseEntities DB, Seller seller) 
+        static public Seller AjouterSeller(this GuitaresDatabaseEntities DB, Seller seller)
         {
             try
             {
@@ -96,14 +98,14 @@ namespace TP01.Infrastructure
             }
         }
 
-        static public bool ModifierSeller(this GuitaresDatabaseEntities DB, Seller seller) 
+        static public bool ModifierSeller(this GuitaresDatabaseEntities DB, Seller seller)
         {
             DB.Entry(seller).State = EntityState.Modified;
             DB.SaveChanges();
             return true;
         }
 
-        static public bool EnleverSeller(this GuitaresDatabaseEntities DB, Seller seller) 
+        static public bool EnleverSeller(this GuitaresDatabaseEntities DB, Seller seller)
         {
             Seller search = DB.Sellers.Find(seller.Id);
 
@@ -141,47 +143,21 @@ namespace TP01.Infrastructure
             }
         }
 
-        public static int GetConditionIdByName(this GuitaresDatabaseEntities DB, string name)
+        public static List<Guitar> FilteredGuitarList(this GuitaresDatabaseEntities DB, int soldFilterChoice, int sellerId)
         {
-            name = name.First().ToString().ToUpper() + name.Substring(1).ToLower();
-            Condition condition = DB.Conditions.Where(c => c.Name == name).FirstOrDefault();
-            if (condition == null)
+            IQueryable<Guitar> guitarsFound = null;
+            if (sellerId != 0)
+                guitarsFound = DB.Guitars.OrderByDescending(g => g.AddDate).Where(g => g.SellerId == sellerId);
+            else
+                guitarsFound = DB.Guitars.OrderByDescending(g => g.AddDate);
+            switch (soldFilterChoice)
             {
-                condition = new Condition();
-                condition.Name = name;
-                condition = DB.Conditions.Add(condition);
-                DB.SaveChanges();
+                case 1: /* Not sold */
+                    return guitarsFound.Where(g => !g.Sold).ToList();
+                case 2: /* Sold */
+                    return guitarsFound.Where(g => g.Sold).ToList();
+                default: return guitarsFound.ToList();
             }
-            return condition.Id;
-        }
-
-        public static int GetGuitarTypeIdByName(this GuitaresDatabaseEntities DB, string name)
-        {
-            name = name.First().ToString().ToUpper() + name.Substring(1).ToLower();
-            GuitarType guitarType = DB.GuitarTypes.Where(c => c.Name == name).FirstOrDefault();
-            if (guitarType == null)
-            {
-                guitarType = new GuitarType();
-                guitarType.Name = name;
-                guitarType = DB.GuitarTypes.Add(guitarType);
-                DB.SaveChanges();
-            }
-            return guitarType.Id;
-        }
-
-        public static int GetSellerIdByName(this GuitaresDatabaseEntities DB, string name)
-        {
-            name = name.First().ToString().ToUpper() + name.Substring(1).ToLower();
-            Seller seller = DB.Sellers.Where(c => c.Name == name).FirstOrDefault();
-            if (seller == null)
-            {
-                seller = new Seller();
-                seller.Name = name;
-                seller = DB.Sellers.Add(seller);
-                DB.SaveChanges();
-            }
-            return seller.Id;
         }
     }
-    
 }

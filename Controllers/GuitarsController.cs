@@ -14,9 +14,15 @@ namespace TP01.Controllers
         private readonly GuitaresDatabaseEntities DB = new GuitaresDatabaseEntities();
         // test
         // GET: Guitars
+        //public ActionResult Index()
+        //{
+        //    return View(DB.Guitars.OrderBy(el => el.AddDate));
+        //}
+
         public ActionResult Index()
         {
-            return View(DB.Guitars.OrderBy(el => el.AddDate));
+            InitSessionKeys();
+            return View(DB.FilteredGuitarList((int)Session["SoldFilterChoice"], (int)Session["SellerFilterChoice"]));
         }
 
         public ActionResult Details (int id)
@@ -41,7 +47,7 @@ namespace TP01.Controllers
          {
             ViewBag.Conditions = SelectListItemConverter<Condition>.Convert(DB.Conditions.ToList());
             ViewBag.GuitarTypes = SelectListItemConverter<GuitarType>.Convert(DB.GuitarTypes.ToList());
-            ViewBag.Sellers = SelectListItemConverter<Seller>.Convert(DB.Sellers.ToList(), false);
+            ViewBag.Sellers = SelectListItemConverter<Seller>.Convert(DB.Sellers.ToList());
             return View(new Guitar());
          }
 
@@ -59,11 +65,13 @@ namespace TP01.Controllers
         public ActionResult Edit(int id)
         {
             Guitar guitar = DB.Guitars.Find(id);
+            Seller seller = DB.Sellers.Find(guitar.SellerId);
             if (guitar != null)
             {
                 ViewBag.Conditions = SelectListItemConverter<Condition>.Convert(DB.Conditions.ToList());
                 ViewBag.GuitarTypes = SelectListItemConverter<GuitarType>.Convert(DB.GuitarTypes.ToList());
-                ViewBag.Sellers = SelectListItemConverter<Seller>.Convert(DB.Sellers.ToList(), false);
+                
+                ViewBag.Sellers = SelectListItemConverter<Seller>.Convert(DB.Sellers.ToList(), seller.Name);
                 return View(guitar);
             }
 
@@ -80,5 +88,32 @@ namespace TP01.Controllers
             }
             return View(newsPost);
         }
+
+        private void InitSessionKeys()
+        {
+            if (Session["SoldFilterChoice"] == null)
+            {
+                Session["SoldFilterChoice"] = 0;
+                Session["SoldFilterList"] = SelectListItemConverter<string>.Convert(new List<string> { "Toutes", "invendues", "Vendues" });
+            }
+            if (Session["SellerFilterChoice"] == null)
+            {
+                Session["SellerFilterChoice"] = 0;
+                Session["SellerFilterList"] = SelectListItemConverter<Seller>.Convert(DB.Sellers.ToList(), "0", "Tous");
+            }
+        }
+
+        public ActionResult SetSoldFilterChoice(int id)
+        {
+            Session["SoldFilterChoice"] = id;
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult SetSellerFilterChoice(int id)
+        {
+            Session["SellerFilterChoice"] = id;
+            return RedirectToAction("Index");
+        }
+
     }
 }
