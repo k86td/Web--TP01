@@ -1,6 +1,5 @@
 ﻿@model TP01.Models.Guitar
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -104,7 +103,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SellerId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SellerId, new { htmlAttributes = new { @class = "form-control" } })
+                @Helper.SelectList("SellerId", (SelectList)ViewBag.Sellers, Model.SellerId)
                 @Html.ValidationMessageFor(model => model.SellerId, "", new { @class = "text-danger" })
             </div>
         </div>

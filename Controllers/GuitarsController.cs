@@ -39,6 +39,9 @@ namespace TP01.Controllers
 
         public ActionResult Creedit(int? id)
         {
+            ViewBag.Conditions = SelectListItemConverter<Condition>.Convert(DB.Conditions.ToList());
+            ViewBag.GuitarTypes = SelectListItemConverter<GuitarType>.Convert(DB.GuitarTypes.ToList());
+            ViewBag.Sellers = SelectListItemConverter<Seller>.Convert(DB.Sellers.ToList(), false);
             if (id.HasValue)
             {
                 Guitar guitar = DB.Guitars.Find(id);
@@ -75,9 +78,24 @@ namespace TP01.Controllers
             }
         }
 
-        
+        public ActionResult SetCurrentConditionId(int id)
+        {
+            Session["CurrentConditionId"] = id;
+            return RedirectToAction("Index");
+        }
 
-        
+        public ActionResult SetCurrentGuitarTypeId(int id)
+        {
+            Session["CurrentGuitarTypeId"] = id;
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult SetCurrentSellerId(int id)
+        {
+            Session["CurrentSellerId"] = id;
+            return RedirectToAction("Index");
+        }
+
 
 
 

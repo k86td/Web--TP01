@@ -139,55 +139,6 @@ namespace TP01.Infrastructure
                 return false;
             }
         }
-
-        public static List<string> GuitarTypesList(this GuitaresDatabaseEntities DB)
-        {
-            List<string> list = new List<string>();
-            foreach (GuitarType guitarType in DB.GuitarTypes.OrderBy(c => c.Name))
-            {
-                list.Add(guitarType.Name);
-            }
-            return list;
-        }
-
-        public static int GetGuitarTypeIdByName(this GuitaresDatabaseEntities DB, string name)
-        {
-            name = name.First().ToString().ToUpper() + name.Substring(1).ToLower();
-            GuitarType guitarType = DB.GuitarTypes.Where(c => c.Name == name).FirstOrDefault();
-            if (guitarType == null)
-            {
-                guitarType = new GuitarType();
-                guitarType.Name = name;
-                guitarType = DB.GuitarTypes.Add(guitarType);
-                DB.SaveChanges();
-            }
-            return guitarType.Id;
-        }
-
-        public static List<string> ConditionsList(this GuitaresDatabaseEntities DB)
-        {
-            List<string> list = new List<string>();
-            foreach (Condition condition in DB.Conditions.OrderBy(c => c.Name))
-            {
-                list.Add(condition.Name);
-            }
-            return list;
-        }
-
-        public static int GetConditionIdByName(this GuitaresDatabaseEntities DB, string name)
-        {
-            name = name.First().ToString().ToUpper() + name.Substring(1).ToLower();
-            Condition condtion = DB.Conditions.Where(c => c.Name == name).FirstOrDefault();
-            if (condtion == null)
-            {
-                condtion = new Condition();
-                condtion.Name = name;
-                condtion = DB.Conditions.Add(condtion);
-                DB.SaveChanges();
-            }
-            return condtion.Id;
-        }
-
     }
     
 }
