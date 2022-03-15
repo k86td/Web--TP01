@@ -242,7 +242,8 @@
     <Content Include="Views\Sellers\_SellersForm.cshtml" />
     <Content Include="Views\Sellers\Details.cshtml" />
     <Content Include="Views\Shared\GuitarForm.cshtml" />
-    <Content Include="Views\Guitars\Creedit.cshtml" />
+    <Content Include="Views\Guitars\Create.cshtml" />
+    <Content Include="Views\Guitars\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

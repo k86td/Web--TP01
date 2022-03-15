@@ -78,27 +78,48 @@ namespace TP01.Controllers
             }
         }
 
-        public ActionResult SetCurrentConditionId(int id)
+         public ActionResult Create()
+         {
+            ViewBag.Conditions = SelectListItemConverter<Condition>.Convert(DB.Conditions.ToList());
+            ViewBag.GuitarTypes = SelectListItemConverter<GuitarType>.Convert(DB.GuitarTypes.ToList());
+            ViewBag.Sellers = SelectListItemConverter<Seller>.Convert(DB.Sellers.ToList(), false);
+            return View(new Guitar());
+         }
+
+        [HttpPost]
+        public ActionResult Create(Guitar guitar)
         {
-            Session["CurrentConditionId"] = id;
+            if (ModelState.IsValid)
+            {
+                DB.AjouterGuitar(guitar);
+                return RedirectToAction("Index");
+            }
+            return View(guitar);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            Guitar guitar = DB.Guitars.Find(id);
+            if (guitar != null)
+            {
+                ViewBag.Conditions = SelectListItemConverter<Condition>.Convert(DB.Conditions.ToList());
+                ViewBag.GuitarTypes = SelectListItemConverter<GuitarType>.Convert(DB.GuitarTypes.ToList());
+                ViewBag.Sellers = SelectListItemConverter<Seller>.Convert(DB.Sellers.ToList(), false);
+                return View(guitar);
+            }
+
             return RedirectToAction("Index");
         }
 
-        public ActionResult SetCurrentGuitarTypeId(int id)
+        [HttpPost]
+        public ActionResult Edit(Guitar newsPost)
         {
-            Session["CurrentGuitarTypeId"] = id;
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                DB.ModifierGuitar(newsPost);
+                return RedirectToAction("Index");
+            }
+            return View(newsPost);
         }
-
-        public ActionResult SetCurrentSellerId(int id)
-        {
-            Session["CurrentSellerId"] = id;
-            return RedirectToAction("Index");
-        }
-
-
-
-
-
     }
 }
