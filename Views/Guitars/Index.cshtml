@@ -1,12 +1,14 @@
 ﻿@model IEnumerable<TP01.Models.Guitar>
 
 @{
+    // test
     ViewBag.Title = "Index";
 }
 
 <h2>Guitares à vendre @Helper.GlyphiconAction("Create", "glyphicon-plus", "Ajouter une guitare à vendre")</h2>
 
 <hr />
+
 <div class='thumbnailListContainer'>
     @foreach (var guitar in Model)
     {
