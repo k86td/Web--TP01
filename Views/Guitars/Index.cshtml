@@ -12,14 +12,14 @@
 <div class='thumbnailListContainer'>
     @foreach (var guitar in Model)
     {
-        <div class='thumbnailContainer'>
-            <div class='thumbnailHeader ellipsis'>
-                <b>@guitar.Model</b>
-            </div>
-            <a href="@Url.Action("Details", "Guitars", new { id = guitar.Id })">
-                @Helper.GuitarImage("thumbail" + guitar.Id, "thumbnail", guitar.ImageURL, guitar.Sold, guitar.RotateImage)
-            </a>
+    <div class='thumbnailContainer'>
+        <div class='thumbnailHeader ellipsis'>
+            <b>@guitar.Model</b>
         </div>
+        <a href="@Url.Action("Details", "Guitars", new { id = guitar.Id })">
+            @Helper.GuitarImage("thumbail" + guitar.Id, "thumbnail", guitar.ImageURL, guitar.Sold, guitar.RotateImage)
+        </a>
+    </div>
     }
 </div>
 <script>

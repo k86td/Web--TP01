@@ -11,13 +11,15 @@ namespace TP01.Infrastructure
 {
     static class DAL
     {
-        static Guitar AjouterGuitar (this GuitaresDatabaseEntities DB, Guitar guitar)
+        static public Guitar AjouterGuitar(this GuitaresDatabaseEntities DB, Guitar guitar)
         {
             try
             {
+                //guitar.GuitarTypeId = DB.GetGuitarTypeIdByName(guitar.)
                 DB.Guitars.Add(guitar);
                 DB.SaveChanges();
-            } catch 
+            }
+            catch
             {
                 throw new Exception("Impossible d'ajouter l'item a la bd");
             }
@@ -25,10 +27,10 @@ namespace TP01.Infrastructure
             return guitar;
         }
 
-        static bool EnleverGuitar (this GuitaresDatabaseEntities DB, Guitar guitar)
+        static public bool EnleverGuitar(this GuitaresDatabaseEntities DB, Guitar guitar)
         {
-            Guitar search = DB.Guitars.Find(guitar);
-            
+            Guitar search = DB.Guitars.Find(guitar.Id);
+
             if (search != null)
             {
                 try
@@ -46,13 +48,35 @@ namespace TP01.Infrastructure
             return false;
         }
 
-        static bool ModifierGuitar (this GuitaresDatabaseEntities DB, Guitar guitar)
+        static public bool EnleverGuitar(this GuitaresDatabaseEntities DB, int guitar)
+        {
+            Guitar search = DB.Guitars.Find(guitar);
+
+            if (search != null)
+            {
+                try
+                {
+                    DB.Guitars.Remove(search);
+                    DB.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
+        static public bool ModifierGuitar(this GuitaresDatabaseEntities DB, Guitar guitar)
         {
             try
             {
                 DB.Entry(guitar).State = EntityState.Modified;
                 DB.SaveChanges();
-            } catch
+            }
+            catch
             {
                 return false;
             }
@@ -60,11 +84,11 @@ namespace TP01.Infrastructure
             return true;
         }
 
-        static Seller AjouterSeller (this GuitaresDatabaseEntities DB, Seller seller) 
+        static public Seller AjouterSeller(this GuitaresDatabaseEntities DB, Seller seller)
         {
             try
             {
-                DB.Sellers.Add(seller);
+                seller = DB.Sellers.Add(seller);
                 DB.SaveChanges();
                 return seller;
             }
@@ -74,24 +98,16 @@ namespace TP01.Infrastructure
             }
         }
 
-        static bool ModifierSeller(this GuitaresDatabaseEntities DB, Seller seller) 
+        static public bool ModifierSeller(this GuitaresDatabaseEntities DB, Seller seller)
         {
-            try
-            {
-                DB.Entry(seller).State = EntityState.Modified;
-                DB.SaveChanges();
-            }
-            catch
-            {
-                return false;
-            }
-
+            DB.Entry(seller).State = EntityState.Modified;
+            DB.SaveChanges();
             return true;
         }
 
-        static bool EnleverSeller(this GuitaresDatabaseEntities DB, Seller seller) 
+        static public bool EnleverSeller(this GuitaresDatabaseEntities DB, Seller seller)
         {
-            Seller search = DB.Sellers.Find(seller);
+            Seller search = DB.Sellers.Find(seller.Id);
 
             if (search == null)
                 return false;
@@ -108,6 +124,40 @@ namespace TP01.Infrastructure
             }
         }
 
+        static public bool EnleverSeller(this GuitaresDatabaseEntities DB, int id)
+        {
+            Seller search = DB.Sellers.Find(id);
+
+            if (search == null)
+                return false;
+
+            try
+            {
+                DB.Sellers.Remove(search);
+                DB.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static List<Guitar> FilteredGuitarList(this GuitaresDatabaseEntities DB, int soldFilterChoice, int sellerId)
+        {
+            IQueryable<Guitar> guitarsFound = null;
+            if (sellerId != 0)
+                guitarsFound = DB.Guitars.OrderByDescending(g => g.AddDate).Where(g => g.SellerId == sellerId);
+            else
+                guitarsFound = DB.Guitars.OrderByDescending(g => g.AddDate);
+            switch (soldFilterChoice)
+            {
+                case 1: /* Not sold */
+                    return guitarsFound.Where(g => !g.Sold).ToList();
+                case 2: /* Sold */
+                    return guitarsFound.Where(g => g.Sold).ToList();
+                default: return guitarsFound.ToList();
+            }
+        }
     }
-    
 }
